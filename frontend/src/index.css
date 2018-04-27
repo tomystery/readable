@@ -1,0 +1,149 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: gray;
+}
+ul,li{
+  list-style: none;
+}
+.clearfix:after{
+  display: block;
+  content:'';
+  clear: both;
+}
+
+
+.App .container{
+  width: 1020px;
+  margin:0 auto;
+  background-color: #fff;
+}
+
+.App .container-left{
+  float: left;
+  width: 400px;
+  height: 500px;
+}
+.App .container-left ul li{
+  
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+.App .container-left ul .active{
+  color: green;
+}
+.App  .container-right{
+  float: left;
+  width: 820px;
+  height: 500px;
+
+}
+
+
+
+/* --default页面 */
+.default{
+  width: 1020px;
+  margin: 0 auto;
+}
+.default-ul{
+  width: 500px;
+  margin:0 auto;
+}
+.default>ul>li{
+  float: left;
+  margin-right: 50px;
+}
+.default .orderBy{
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.active1{
+  color: red;
+}
+/* default页面 --*/
+
+/* --AddPost页面 */
+.add-post{
+
+}
+.add-post Icon{
+  font-size: 20px;
+}
+/* AddPost页面 --*/
+
+/* --postList部分 */
+.post-list{
+  background-color: #cdcdcd;
+}
+.post-list h3{
+  text-align: center;
+}
+.post-list span{
+  
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.post-list-timestamp{
+  text-align: left;
+}
+.post-list-li{
+  width: 600px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+ 
+
+}
+
+/* postList部分 --*/
+
+/* --post-detail */
+.post-detail{
+  width: 1000px;
+  margin:0 auto;
+}
+.post-detail .content{
+  height: 100px;
+}
+.post-detail .message{
+  text-align: center
+}
+.post-detail>ul>li{
+  float: left;
+  margin-right: 50px;
+}
+.post-derail-h{
+  font-size: 18px;
+  font-weight: 500;
+}
+/* post-detail-- */
+
+
+/*-- Comments.js */
+.comment .comment-left{
+  float: left;
+}
+.comment ul li{
+  background: #ccc;
+  margin-bottom: 30px;
+} 
+.comment .comment-time{
+  font-size: 12px;
+}
+.comment .comment-right{
+  float: right;
+}
+.comment .comment-right button{
+  float: left;
+  margin-right: 30px;
+}
+/*Comments.js-- */
+
+/* --add-comment */
+.add-comment>button{
+  margin: 0 auto;
+}
+/* add-comment-- */
