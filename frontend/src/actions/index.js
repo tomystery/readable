@@ -34,6 +34,7 @@ export const UPDATE_POST = 'UPDATE_POST'
 export const DEL_POST = 'DEL_POST'
 export const POST_UPDATE_TITLE = 'POST_UPDATE_TITLE'
 export const POST_UPDATE_BODY = 'POST_UPDATE_BODY'
+export const UPDATE_VOTE='UPDATE_VOTE'
 export const receivePosts = posts => ({
     type: RECEIVE_POSTS,
     posts
@@ -67,6 +68,13 @@ export const postUpdateBody = (value, id) => ({
     value,
     id
 })
+export const updateVote=(id,vote)=>({
+    type:UPDATE_VOTE,
+    id,
+    vote
+})
+
+
 
 
 /* 

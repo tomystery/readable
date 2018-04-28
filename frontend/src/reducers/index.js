@@ -2,7 +2,8 @@ import { combineReducers } from 'redux'
 import {
     RECEIVE_CATEGORIES, RECEIVE_POSTS, RECEIVE_COMMENT, CHANGE_ORDER, ADD_POST,
     RECEIVE_CURRENT_CATEGORY, COMMENT_ORDER, GET_CURRENT_COMMENT_ID, EDIT_MODAL_OPEN, EDIT_MODAL_CLOSE,
-    UPDATE_COMMENT, DEL_COMMENT, ADD_COMMENT, EDIT_POST_MODAL_OPEN, EDIT_POST_MODAL_CLOSE, UPDATE_POST, DEL_POST, POST_UPDATE_TITLE, POST_UPDATE_BODY
+    UPDATE_COMMENT, DEL_COMMENT, ADD_COMMENT, EDIT_POST_MODAL_OPEN, EDIT_POST_MODAL_CLOSE, UPDATE_POST, DEL_POST, POST_UPDATE_TITLE,
+    POST_UPDATE_BODY, UPDATE_VOTE
 } from '../actions'
 import { stat } from 'fs';
 
@@ -79,7 +80,7 @@ function postReducer(state = postState, action) {
             }
         case POST_UPDATE_TITLE:
             let postResult = state.posts.concat()
-            
+
             postResult.forEach((post, index) => post.id === action.id ? (state.posts[index].title = action.value) : '')
             return {
                 ...state,
@@ -92,6 +93,14 @@ function postReducer(state = postState, action) {
                 ...state,
                 posts: postResult1
             }
+        case UPDATE_VOTE:
+            let postResult2 = state.posts.concat()
+            postResult2.forEach((post,index) => post.id === action.id && action.vote==='upVote'? (postResult2[index].voteScore += 1) : postResult2[index].voteScore -= 1)
+            return {
+                ...state,
+                posts: postResult2
+            }
+       
         default:
             return state
 

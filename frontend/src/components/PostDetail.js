@@ -1,10 +1,11 @@
 import React from 'react'
 import { Button, Icon } from 'antd'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import * as readableAPI from '../ReadableAPI'
 import { formateDate } from '../util/util'
 import Comments from './Comments'
-import { receiveComment, editPostModalOpen, editPostModalClose, updatePost, delPost,postUpdateTitle,postUpdateBody } from '../actions'
+import { receiveComment, editPostModalOpen, editPostModalClose, updatePost, delPost, postUpdateTitle, postUpdateBody,updateVote} from '../actions'
 import { Modal } from 'antd';
 import AddComment from './AddComment'
 
@@ -15,10 +16,10 @@ class PostDetail extends React.Component {
 
     render() {
 
-        const { postId, postList, visible, editPost, openModal, showConfirm, handleCancel, updateTitle,updateBody } = this.props
+        const { postId, postList, visible, editPost, openModal, showConfirm, handleCancel, updateTitle, updateBody,addVote } = this.props
 
         let post = {}
-    
+
         postList.forEach((p) => (p.id === postId ? post = p : ""))
         if (post.title === undefined) {
             return (
@@ -29,14 +30,14 @@ class PostDetail extends React.Component {
         return (
 
             <div className="post-detail">
-
+                <Link to='/'>返回首页</Link>
                 <h3>{post.title}</h3>
                 <ul className='clearfix'><li>时间：{formateDate(post.timestamp)}</li><li>作者：{post.author}</li>
                     <li>评论数：{post.commentCount}</li><li>投票数:{post.voteScore}</li>
-                    <li><Button onClick={() => (openModal())}><Icon type="edit" />修改</Button></li>
-                    <li><Button onClick={() => (showConfirm(post.id))}><Icon type="delete" />删除</Button></li>
+                    <li><Button type="primary" onClick={() => (openModal())}><Icon type="edit" />修改帖子</Button></li>
+                    <li><Button onClick={() => (showConfirm(post.id))}><Icon type="delete" />删除帖子</Button></li>
                 </ul>
-                <div className='content'>{post.body}</div>
+                <p className='content'>{post.body}</p>
                 <p className='message'><Icon type="message" /></p>
                 <p className='post-derail-h'>下面是所有的评论</p>
 
@@ -52,6 +53,10 @@ class PostDetail extends React.Component {
                         <p>作者：<input type='text' value={post.author} disabled /></p>
                         <p>内容： <textarea onChange={(e) => (updateBody(e.target.value, post.id))}>{post.body}</textarea></p>
                     </Modal>
+                </div>
+                <div className='like-dislike'>
+                    <Button onClick={() => (addVote(post.id, "upVote"))} className='like-btn' ><Icon type="like" /></Button>
+                    <Button onClick={() => (addVote(post.id, "downVote"))} className='dislike-btn' ><Icon type="dislike" /></Button>
                 </div>
 
             </div>
@@ -105,8 +110,15 @@ function mapDispatchToprops(dispatch) {
                 })
             })
         },
-        updateTitle: (value, id) => (dispatch(postUpdateTitle(value,id))),
-        updateBody: (value,id) =>(dispatch(postUpdateBody(value,id)))
+        updateTitle: (value, id) => (dispatch(postUpdateTitle(value, id))),
+        updateBody: (value, id) => (dispatch(postUpdateBody(value, id))),
+        addVote: (id, vote) => (dispatch((dispatch) => (
+            readableAPI
+                .votePost(id, vote)
+                .then((data) => {
+                    dispatch(updateVote(id, vote))
+                })
+        )))
     }
 }
 
